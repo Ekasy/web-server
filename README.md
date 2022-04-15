@@ -4,6 +4,40 @@
 - язык: python
 - архитектура: prefork + coroutines
 
+## Описание
+Демон *web-server* предназначен для отправки статических файлов.
+
+### Схема работы
+Сканирует локальную директорию на предмет наличия запрашиваемого файла. Если файл есть - возвращает в ответе его содержимое со статусом 200. Если файла нет - возвращает ошибку 404.
+
+### api
+* /<path_to_file>/<filename>
+
+Примеры использования API:
+* http://localhost:8081/httptest/wikipedia_russia.html - возвращается страничка wikipedia_russia.html.
+
+### Конфиг
+Включает стандартные секции:
+```
+cpu_limit 8                         # maximum CPU count to use
+thread_limit 256                    # maximum simultaneous connections
+document_root /app/http-test-suite  # full path to the proxied folder
+```
+
+### Запуск сервера
+Для запуска сервера нужно проделать следующие команды
+```
+make run
+chmod +x run_tests.sh
+./run_tests.sh host port
+```
+Команда запустит сервер и сразу же проведет функциональное тестирование
+
+Параметры команды `run_tests.sh`:
+- host - хост, на котором сервер запущен
+- port - порт, на котором сервер запущен
+
+
 ## Функциональное тестирование
 ```
 make run
